@@ -62,7 +62,6 @@ export const sendMail = async (req: Request, res: Response) => {
     if (!mailDetails) {
       return res.status(400).json({ message: "Invalid token" });
     }
-    console.log(mailDetails);
 
     //credentials for email transportation
 
