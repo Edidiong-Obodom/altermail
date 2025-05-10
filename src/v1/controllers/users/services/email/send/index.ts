@@ -84,7 +84,7 @@ export const sendMail = async (req: Request, res: Response) => {
 
     //Welcome Message
     const msg = {
-      from: `${mailDetails.firstName} <${mailDetails.email}>`, // sender address
+      from: `${mailDetails.businessName} <${mailDetails.email}>`, // sender address
       to: email, // list of receivers
       subject, // Subject line
       text: mailBodyText, // plain text body

@@ -11,7 +11,14 @@ interface ExtendUser extends User {
 }
 
 export const sendVerificationCode = async (req: Request, res: Response) => {
-  const fields = ["email", "password", "firstName", "lastName", "host"];
+  const fields = [
+    "email",
+    "password",
+    "businessName",
+    "firstName",
+    "lastName",
+    "host",
+  ];
   const currentDate = new Date();
   const timestamp = Math.floor(currentDate.getTime() / 1000);
   let limboCollection: Collection;
@@ -39,7 +46,7 @@ export const sendVerificationCode = async (req: Request, res: Response) => {
   }
 
   // Get values from body
-  const { email, password, firstName, lastName, host, ...rest } =
+  const { email, password, businessName, firstName, lastName, host, ...rest } =
     req.body as User & {
       [key: string]: any;
     };
@@ -82,6 +89,7 @@ export const sendVerificationCode = async (req: Request, res: Response) => {
     await limboCollection.insertOne({
       email,
       host,
+      businessName,
       firstName,
       lastName,
       encryptedPassword,
@@ -117,8 +125,6 @@ export const sendVerificationCode = async (req: Request, res: Response) => {
 
 export const register = async (req: Request, res: Response) => {
   const fields = ["email", "code"];
-  const currentDate = new Date();
-  const timestamp = Math.floor(currentDate.getTime() / 1000);
   let limboCollection: Collection;
   let credentialsCollection: Collection;
   // check data for each field in the body and validate format
